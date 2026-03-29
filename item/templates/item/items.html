@@ -1,0 +1,64 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Items{% endblock %}
+
+{% block content %}
+    <div style="padding-block-end:0.6rem; display:grid;grid-template-columns:repeat(4,1fr);gap:0.4rem;">
+        <div style="grid-column:span 1;">
+        <form method="get" action="{% url 'item:items' %}">
+            <input name="query" style="width:100%; padding-block:0.4rem; padding-inline:0.6rem;border:1px solid gray;border-radius:10px;" type="text" value="{{ query }}" placeholder="Search For">
+
+            <button style="margin-top:0.2rem; padding-block:0.4rem;padding-inline:0.8rem; font-size:1rem; background-color:teal;color:white; border-radius:10px; ">Search
+            </button>
+        </form>
+
+        <hr style="margin-block:0.6rem;">
+        <p style="font:600 1rem ,sans-serif;">
+            Categories
+        </P>
+
+        <ul>
+            {% for category in categories %}
+        <li style="padding:0.2rem; border-radius:10px;{% if category.id == category_id %} background-color:#E5E7EB;{% endif %}">
+                <a style="text-decoration:none;color:black;" href="{% url 'item:items' %}?query={{ query }}&category={{ category.id}}">{{category.name}}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <hr style="margin-block:0.6rem;">
+        <p style="font:600 1rem ,sans-serif;">
+            Clear filters:
+        </P>
+        
+        <ul>
+            <li><a href="{% url 'item:items' %}" style="text-decoration:none;margin-top:0.2rem;padding:0.8rem 0.4rem; display:inline-block; color:white; background-color:#ebc91e;font-size:0.8rem;border-radius:10px;">
+                Clear
+            </a></li>
+        </ul>
+
+        </div>
+        <div style="grid-column:span 3;">
+            <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:0.6rem; padding: 0 1rem;">
+        {% for item in items %}
+        <div>
+            <!-- This correctly points to detail, NOT delete -->
+            <a href="{% url 'item:detail' item.id %}" style="text-decoration: none; color: inherit;">
+                <div style="border-radius:10px; overflow:hidden; background-color:white;">  
+                    <img src="{{ item.image.url }}" style="width:100%; height:200px; object-fit:cover; display:block;"> 
+                    
+                    <div style="padding:0.5rem; background-color:#E5E7EB;">
+                        <!-- Changed .title to .name to match your Item model -->
+                        <h2 style="font:500 0.8rem 'inter', sans-serif; margin:0;">{{ item.name }}</h2>
+                        <p style="color: gray; margin:0;">Price: ${{ item.price }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+            <p style="grid-column: span 3; color: gray;">You haven't added any items yet.</p>
+        {% endfor %}
+    </div>
+        </div>
+    </div>
+{% endblock %}

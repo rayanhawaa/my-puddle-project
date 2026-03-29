@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+}
+
+p {
+    font: 500;
+    color:lightgray;
+
+
+}
+.homepage{
+    padding:0.8rem;
+}
+.navbar{
+    color:white;
+    background:rgb(228, 6, 154);
+    display:flex;
+    gap:1rem;
+    padding:0.8rem;
+    padding-bottom:2rem;
+    justify-content:space-between;
+    border-bottom: 2px solid lightgray;
+    align-items:center;
+    font: 800 1.5rem, sans-serif;
+}
+.navitems a{
+    margin-inline:0.4rem;
+    color:white;
+    font:400 1.1rem, sans-serif;
+    text-decoration:none;
+}   
+
+.navitems a:hover{
+    color:lightgray;
+}
+
+.login {
+    background-color:teal;
+    border-radius:16px;
+    padding:0.6rem 0.8rem;
+    font: 600, sans-serif;
+}
+
+.signup {
+    padding:0.6rem 0.8rem;
+    background-color:gray;
+    border-radius:16px;
+}
+.footer {
+    display:flex;
+    padding:0.8rem;
+    justify-content:space-between;
+    background-color:rgb(53, 31, 46);
+    color:white;
+    margin-bottom:3rem;
+    font:700 0.6rem Helvetica, sans-serif;
+}

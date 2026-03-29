@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+
+{% block title %} Welcome {% endblock %}
+
+{% block content %}
+<!-- Section 1: Newest Items -->
+<div style="margin-top:0.5rem; padding-bottom:5rem; padding-top:1rem; border-radius:10px; text-align:center; background-color:lightgray;">
+    <h2 style="margin-bottom: 1rem;">Newest items</h2>
+    
+    <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:0.6rem; padding: 0 1rem;">
+        {% for item in items %}
+        <div>
+            <!-- Link to the specific item detail page -->
+            <a href="{% url 'item:detail' item.id %}" style="text-decoration: none; color: inherit;">
+                <div style="border-radius:10px; overflow:hidden;">  
+                    <img src="{{ item.image.url }}" style="width:100%; display:block; border-top-left-radius:10px; border-top-right-radius:10px;"> 
+                    
+                    <div style="padding:0.5rem; background-color:white; border-bottom-left-radius:10px; border-bottom-right-radius:10px;">
+                        <h2 style="font:500 0.8rem 'inter', sans-serif; margin:0;">{{ item.title }}</h2>
+                        <p style="color: gray; margin:0;">Price: {{ item.price }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Section 2: Categories -->
+<div style="margin-top:0.5rem; padding-bottom:5rem; padding-top:1rem; border-radius:10px; text-align:center; background-color:lightgray;">
+    <h2 style="margin-bottom: 1rem;">Categories</h2>
+    
+    <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:0.6rem; padding: 0 1rem;">
+        {% for category in categories %}
+            <!-- Check if category has items to avoid NoReverseMatch error -->
+            {% if category.items.all %}
+                <a href="{% url 'item:detail' category.items.first.id %}" style="text-decoration: none; color: inherit;">
+            {% else %}
+                <a href="#" style="text-decoration: none; color: inherit;">
+            {% endif %}
+                <div style="padding:0.5rem; background-color:white; border-radius:10px;">
+                    <h2 style="font:500 0.8rem 'inter', sans-serif; margin:0;">{{ category.name }}</h2>
+                    <p style="color: gray; margin:0;">{{ category.items.count }} items</p>
+                </div>     
+            </a>
+        {% endfor %}
+    </div>
+</div> 
+{% endblock %}

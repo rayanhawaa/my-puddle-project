@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+<center>
+<div style="width:50%;color:white; margin-inline:0.5;background-color:gray;border-radius:10px">
+    <h1 style="matgin-bottom:0.5; font:500 0.8rem,sans-serif;padding:0.6rem"> Login   </h1>
+    
+    <style>
+        .button{
+            padding-inline:0.4rem;
+            padding-block:0.5rem;
+            background-color:teal;
+            border-radius:10px;
+            color:white;
+        }
+        .button:hover{
+            background.color:green;
+        }
+    </style>
+
+    <form method="post" action=".">
+        {% csrf_token %}
+
+        <div style="margin-bottom:1rem;">
+            <label style="display:inline-block; matgin-bottom:0.6rem">Username</label><br>
+            {{ form.username }}
+        </div>
+        
+        <div style="margin-bottom:1rem;">
+            <label style="display:inline-block; matgin-bottom:0.6rem">Password</label><br>
+            {{ form.password }}
+        </div>
+
+
+        {% if form.errors or form.non_field_errors %}
+            <div style="margin-block-end:1rem;padding:0.6rem; border-radius:10px;">
+                {% for field in form %}
+                    {{ field.errors }}
+                {% endfor %}
+
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+      
+</div>
+</center>
+{% endblock %}

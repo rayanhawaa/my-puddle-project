@@ -1,0 +1,54 @@
+{% load static %}
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+
+        <!-- Here are the link files-->
+         <link rel="stylesheet" href="{% static 'core/base.css' %}">
+
+       <title> {% block title %}{% endblock %}|Puddle </title>
+    </head>
+
+    <body>
+        <nav class='navbar'>
+            <span style="font: 800 1rem halvatica, sans-serif">Preacher</span>
+            <div class='navitems'>
+                <a href="{% url 'item:new' %}">New item </a>
+                 <a href="{% url 'item:items' %}">Browse </a>
+                 
+
+                 {% if request.user.is_authenticated %}
+                    <a href="{% url 'conversation:inbox' %}" class="signup">Inbox</a>
+                    <a href="{% url 'dashboard:index' %}" class="login">Dashboard</a>
+                 {% else %}
+                  <a href="{% url 'core:signup' %}" class="signup">Signup</a>
+                   <a href="{% url 'core:login' %}" class="login">Login</a>
+                {% endif %}
+            </div>
+        </nav>
+        <div class="homepage">
+            {% block content %}
+            {% endblock %}
+        </div>
+
+        <footer class="footer">
+            <div>
+                <h3 style="width:66%; padding-right:0.8rem;">About</h3>
+                <div style="font:300 0.8rem sans-serif;">
+                    {% lorem 1 b random %}
+                </div>
+            </div>
+            <div style="width:40%;">
+                <h3 style="font:600 1rem sans-serif;color:gray;">Menu</h3>
+                <ul style="display:flex;flex-direction:column;gap:0.5rem;">
+                    <li><a href="#" style="color:teal; font:500 0.8rem, sans-serif; hover:font:700 0.8rem helvatica, sans-serif">Home</a></li>
+                    <li><a href="{% url 'core:contact'%}" style="color:teal; font:500 0.8rem, sans-serif; hover:font:700 0.8rem helvatica, sans-serif">Contact</a></li>
+                    <li><a href="#" style="color:teal; font:500 0.8rem, sans-serif; hover:font:700 0.8rem helvatica, sans-serif">Privacy policy</a></li>
+                    <li><a href="#" style="color:teal; font:500 0.8rem, sans-serif; hover:font:700 0.8rem helvatica, sans-serif">Terms of use</a></li>
+                </ul>
+            </div>
+        </footer>
+    </body>
+</html>

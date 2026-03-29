@@ -1,0 +1,42 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block content %}
+<h1 style="margin-bottom: 1.5rem; font-size: 1.6rem; font-weight: bold;">Conversation</h1>
+
+<div style="display: grid; grid-template-columns: 1fr; gap: 0.8rem;">
+    {% for message in conversation.messages.all %}
+            <div style="padding: 1rem; display: flex; align-items: center; {% if message.created_by == requet.user %}background-color: #6d65a9;{% else %} background-color: #043f36; {% endif %}border-radius: 12px; border: 1px solid #ddd;">
+                <div>
+                    <p style="margin-block-end:0.4rem;">
+                        <strong>
+                        {{ message.created_by.username}}
+                        </strong>
+                        @ {{ message.created_at}}
+                    </p>
+                    <p>{{ message.content}}</p>
+                </div>
+    {% endfor %}
+</div>
+
+<form method="post" action=".">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <style>
+        .button{
+            padding-inline:0.4rem;
+            padding-block:0.5rem;
+            background-color:teal;
+            border-radius:10px;
+            color:white;
+        }
+        .button:hover{
+            background.color:green;
+        }
+    </style>
+<button class="button button:hover">
+            Send
+        </button>
+    </form>
+{% endblock %}
